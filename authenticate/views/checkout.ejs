@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Checkout</h1>
+
+    <div>
+        <h2>Product Details</h2>
+        <p>Product Name: <span id="productName">Product Name</span></p>
+        <p>Price: $<span id="productPrice">0.00</span></p>
+    </div>
+
+    <div>
+        <h2>Quantity</h2>
+        <button id="decreaseQuantity">-</button>
+        <span id="quantity">1</span>
+        <button id="increaseQuantity">+</button>
+    </div>
+
+    <div>
+        <h2>Shipping Address</h2>
+        <p>Address: <span id="shippingAddress">123 Main St, City, State</span></p>
+    </div>
+
+    <div>
+        <h2>Total Amount</h2>
+        <p>$<span id="totalAmount">0.00</span></p>
+    </div>
+
+    <div>
+        <h2>Expected Delivery Date</h2>
+        <p><span id="expectedDeliveryDate">MM/DD/YYYY</span></p>
+    </div>
+
+    <script>
+        // Add your JavaScript code here to handle quantity adjustments and calculate total amount
+
+        // Example code to handle quantity adjustments
+        const decreaseQuantityButton = document.getElementById('decreaseQuantity');
+        const increaseQuantityButton = document.getElementById('increaseQuantity');
+        const quantityElement = document.getElementById('quantity');
+
+        decreaseQuantityButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityElement.innerText);
+            if (quantity > 1) {
+                quantity--;
+                quantityElement.innerText = quantity;
+            }
+        });
+
+        increaseQuantityButton.addEventListener('click', () => {
+            let quantity = parseInt(quantityElement.innerText);
+            quantity++;
+            quantityElement.innerText = quantity;
+        });
+    </script>
+</body>
+</html>

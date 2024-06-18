@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-auto">
+            <div class="row">
+                <h3>Products with most recent expiry</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Date-of-expiry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% expiryProducts.forEach(function(product) { %>
+                            <tr>
+                                <td><%= product.Product_name %></td>
+                                <td><%= product.Drug_Description %></td>
+                                <td><%= product.Total_Quantity %></td>
+                                <td><%= product.Recent_date_of_expiry %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <h3>Most ordered Products</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% orderedProducts.forEach(function(product) { %>
+                            <tr>
+                                <td><%= product.Product_Name %></td>
+                                <td><%= product.About_drug %></td>
+                                <td><%= product.Price %></td>
+                                <td><%= product.ProductQuantity %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,88 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Products</h1>
+            <form action="/myFunction" method="POST" class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search_bar" name="drug_Name" value="<%= searched %>" maxlength="20">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(function(product) { %>
+                        <tr>
+                            <td><img src="#" alt="<%= product.Product_name %>" style="width: 100px;"></td>
+                            <td><%= product.Product_name %></td>
+                            <td><%= product.Drug_Description %></td>
+                            <td><%= product.Average_price %></td>
+                            <td>
+                                <a href="#" class="btn btn-primary">Add to cart</a>
+                                <a href="#" id="orderLink_<%= product.ProductID %>" class="btn btn-primary orderButton">Order Now</a>
+                                <div class="input-group" style="width: 20vh;">
+                                    <button class="btn btn-outline-secondary minusButton" type="button">-</button>
+                                    <input type="number" id="quantity_<%= product.ProductID %>" class="form-control text-center" value="1" min="1">
+                                    <button class="btn btn-outline-secondary plusButton" type="button">+</button>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.orderButton').forEach(function(orderButton) {
+    orderButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var productID = this.id.replace('orderLink_', '');
+        var quantity = document.getElementById('quantity_' + productID).value;
+        fetch('/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productID: productID, quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+});
+
+document.querySelectorAll('.minusButton').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var input = this.nextElementSibling;
+        var quantity = parseInt(input.value, 10);
+        if (quantity > 1) {
+            input.value = quantity - 1;
+        }
+    });
+});
+
+document.querySelectorAll('.plusButton').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var input = this.previousElementSibling;
+        var quantity = parseInt(input.value, 10);
+        input.value = quantity + 1;
+    });
+});
+
+</script>
+
+<%- include('partials/footer') %>
